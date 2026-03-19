@@ -3,11 +3,13 @@ import { motion } from "framer-motion";
 import { Trash2, Minus, Plus, ShoppingBag, ArrowRight } from "lucide-react";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
-import { useAuth } from "@workspace/replit-auth-web";
+import { useLocation } from "wouter";
+import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
 
 export default function Cart() {
   const { items, totalItems, subtotal, updateQuantity, removeItem, clear } = useCart();
-  const { isAuthenticated, login } = useAuth();
+  const { isAuthenticated } = useSupabaseAuth();
+  const [, setLocation] = useLocation();
 
   const shipping = subtotal > 200 ? 0 : 25;
   const total = subtotal + shipping;
@@ -140,11 +142,11 @@ export default function Cart() {
                 </Button>
               ) : (
                 <div className="space-y-4">
-                  <Button onClick={login} className="w-full h-14 text-base bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
+                  <Button onClick={() => setLocation("/login")} className="w-full h-14 text-base bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl">
                     Sign in to Checkout
                   </Button>
                   <p className="text-xs text-center text-muted-foreground">
-                    You can securely checkout after signing in to your Replit account.
+                    Sign in securely with your email OTP or Google account.
                   </p>
                 </div>
               )}

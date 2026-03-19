@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useAuth } from "@workspace/replit-auth-web";
+import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
 import { 
   useGetCart, 
   useAddToCart, 
@@ -31,10 +31,9 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated, isLoading: isAuthLoading } = useAuth();
+  const { isAuthenticated, isLoading: isAuthLoading } = useSupabaseAuth();
   const queryClient = useQueryClient();
   
-  // Local state for unauthenticated users
   const [localItems, setLocalItems] = useState<LocalCartItem[]>(() => {
     try {
       const stored = localStorage.getItem("ripto_cart");
@@ -44,14 +43,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   });
 
-  // Persist local cart
   useEffect(() => {
     if (!isAuthenticated && !isAuthLoading) {
       localStorage.setItem("ripto_cart", JSON.stringify(localItems));
     }
   }, [localItems, isAuthenticated, isAuthLoading]);
 
-  // API hooks
   const { data: apiCart, isLoading: isApiLoading } = useGetCart({
     query: { enabled: isAuthenticated }
   });
@@ -74,7 +71,6 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   const isLoading = isAuthLoading || (isAuthenticated ? isApiLoading : false);
   
-  // Normalized items array
   const items: LocalCartItem[] = isAuthenticated 
     ? (apiCart || []).map(item => ({ 
         productId: item.productId, 
