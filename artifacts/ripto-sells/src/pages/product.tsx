@@ -3,7 +3,7 @@ import { useParams, Link } from "wouter";
 import { motion } from "framer-motion";
 import { Star, Truck, Shield, RefreshCcw, Minus, Plus, ShoppingBag, BadgeCheck } from "lucide-react";
 import { useGetProduct } from "@workspace/api-client-react";
-import { MOCK_PRODUCTS, MOCK_REVIEWS } from "@/lib/mock-data";
+import { MOCK_PRODUCTS, MOCK_REVIEWS, MOCK_CATEGORIES } from "@/lib/mock-data";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
 
@@ -52,6 +52,14 @@ export default function ProductDetail() {
   // Ensure images array
   const images = Array.isArray(product.images) && product.images.length > 0 ? product.images : [product.imageUrl || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=800&q=80"];
 
+  // Safe values with fallbacks
+  const price = Number(product.price) || 0;
+  const originalPrice = product.originalPrice ? Number(product.originalPrice) : undefined;
+  const inStock = product.inStock !== false;
+  const categorySlug = MOCK_CATEGORIES.find(c => c.id === product.categoryId)?.slug
+    ?? product.categoryName?.toLowerCase().replace(/\s+/g, "-")
+    ?? "categories";
+
   const handleAddToCart = () => {
     addItem(product, quantity);
   };
@@ -64,7 +72,7 @@ export default function ProductDetail() {
         <div className="py-6 text-sm text-muted-foreground flex items-center gap-2">
           <Link href="/" className="hover:text-primary transition-colors">Home</Link>
           <span>/</span>
-          <Link href={`/category/${product.categoryName?.toLowerCase()}`} className="hover:text-primary transition-colors">
+          <Link href={`/category/${categorySlug}`} className="hover:text-primary transition-colors">
             {product.categoryName}
           </Link>
           <span>/</span>
@@ -127,10 +135,10 @@ export default function ProductDetail() {
             </div>
 
             <div className="flex items-end gap-3 mb-8">
-              <span className="text-3xl font-bold text-foreground">₹{Number(product.price || 0).toFixed(2)}</span>
-              {product.originalPrice && (
+              <span className="text-3xl font-bold text-foreground">₹{price.toFixed(2)}</span>
+              {originalPrice && (
                 <span className="text-lg text-muted-foreground line-through mb-1">
-                  ₹{Number(product.originalPrice).toFixed(2)}
+                  ₹{originalPrice.toFixed(2)}
                 </span>
               )}
             </div>
@@ -149,7 +157,7 @@ export default function ProductDetail() {
                 <button 
                   onClick={() => setQuantity(Math.max(1, quantity - 1))}
                   className="text-muted-foreground hover:text-primary transition-colors"
-                  disabled={!product.inStock}
+                  disabled={!inStock}
                 >
                   <Minus className="w-5 h-5" />
                 </button>
@@ -157,7 +165,7 @@ export default function ProductDetail() {
                 <button 
                   onClick={() => setQuantity(quantity + 1)}
                   className="text-muted-foreground hover:text-primary transition-colors"
-                  disabled={!product.inStock}
+                  disabled={!inStock}
                 >
                   <Plus className="w-5 h-5" />
                 </button>
@@ -166,13 +174,13 @@ export default function ProductDetail() {
               {/* Add to cart button */}
               <Button 
                 onClick={handleAddToCart}
-                disabled={!product.inStock}
+                disabled={!inStock}
                 className="flex-1 h-14 text-lg bg-primary text-primary-foreground hover:bg-primary/90 shadow-[0_10px_25px_-5px_rgba(212,175,55,0.4)] transition-all hover:-translate-y-1 rounded-xl"
               >
-                {product.inStock ? (
+                {inStock ? (
                   <>
                     <ShoppingBag className="w-5 h-5 mr-2" />
-                    Add to Cart • ₹{(Number(product.price || 0) * quantity).toFixed(2)}
+                    Add to Cart • ₹{(price * quantity).toFixed(2)}
                   </>
                 ) : "Sold Out"}
               </Button>
