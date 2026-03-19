@@ -5,7 +5,7 @@ import { MOCK_CATEGORIES, getMockCategoryImageUrl } from "@/lib/mock-data";
 
 export default function Categories() {
   const { data: apiCategories, isLoading } = useGetCategories();
-  const categories = apiCategories && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
+  const categories = Array.isArray(apiCategories) && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
 
   if (isLoading) {
     return (

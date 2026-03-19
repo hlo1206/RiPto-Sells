@@ -50,7 +50,7 @@ export default function ProductDetail() {
   }
 
   // Ensure images array
-  const images = product.images?.length ? product.images : [product.imageUrl || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=800&q=80"];
+  const images = Array.isArray(product.images) && product.images.length > 0 ? product.images : [product.imageUrl || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=800&q=80"];
 
   const handleAddToCart = () => {
     addItem(product, quantity);
