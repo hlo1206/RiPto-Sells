@@ -3,19 +3,17 @@ import { useLocation } from "wouter";
 import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { Mail, Chrome, ArrowLeft, KeyRound } from "lucide-react";
+import { Mail, Chrome, ArrowLeft, CheckCircle2 } from "lucide-react";
 
-type Step = "email" | "otp";
+type Step = "email" | "sent";
 
 export default function Login() {
-  const { isAuthenticated, isLoading, signInWithOtp, verifyOtp, signInWithGoogle } = useSupabaseAuth();
+  const { isAuthenticated, isLoading, signInWithOtp, signInWithGoogle } = useSupabaseAuth();
   const [, setLocation] = useLocation();
 
   const [step, setStep] = useState<Step>("email");
   const [email, setEmail] = useState("");
-  const [otp, setOtp] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -24,29 +22,16 @@ export default function Login() {
     }
   }, [isAuthenticated, isLoading, setLocation]);
 
-  const handleSendOtp = async (e: React.FormEvent) => {
+  const handleSendLink = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccess(null);
     setSubmitting(true);
     const { error } = await signInWithOtp(email);
     setSubmitting(false);
     if (error) {
       setError(error);
     } else {
-      setSuccess("OTP sent! Check your email inbox.");
-      setStep("otp");
-    }
-  };
-
-  const handleVerifyOtp = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError(null);
-    setSubmitting(true);
-    const { error } = await verifyOtp(email, otp.trim());
-    setSubmitting(false);
-    if (error) {
-      setError(error);
+      setStep("sent");
     }
   };
 
@@ -74,7 +59,7 @@ export default function Login() {
         </div>
       </div>
 
-      {/* Right side: Login form */}
+      {/* Right side */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-background">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -82,8 +67,8 @@ export default function Login() {
           transition={{ duration: 0.5 }}
           className="max-w-md w-full"
         >
-          <div className="w-16 h-16 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center mb-8">
-            <span className="font-display font-bold text-3xl text-primary">R</span>
+          <div className="w-14 h-14 bg-primary/10 border border-primary/20 rounded-2xl flex items-center justify-center mb-8">
+            <span className="font-display font-bold text-2xl text-primary">R</span>
           </div>
 
           <AnimatePresence mode="wait">
@@ -91,11 +76,10 @@ export default function Login() {
               <motion.div key="email-step" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }}>
                 <h1 className="text-4xl font-display font-bold mb-2">Welcome</h1>
                 <p className="text-muted-foreground mb-8">
-                  Enter your email and we'll send you a one-time code to sign in or create an account.
+                  Enter your email — we'll send a secure sign-in link. No password needed.
                 </p>
 
                 <div className="bg-card border border-border/50 rounded-2xl p-8 shadow-xl mb-6">
-                  {/* Google Button */}
                   <Button
                     type="button"
                     variant="outline"
@@ -112,7 +96,7 @@ export default function Login() {
                     <div className="flex-1 border-t border-border/50" />
                   </div>
 
-                  <form onSubmit={handleSendOtp} className="space-y-4">
+                  <form onSubmit={handleSendLink} className="space-y-4">
                     <div className="relative">
                       <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
                       <input
@@ -137,71 +121,38 @@ export default function Login() {
                       disabled={submitting || isLoading}
                       className="w-full h-12 text-base bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl"
                     >
-                      {submitting ? "Sending..." : "Send OTP Code"}
+                      {submitting ? "Sending..." : "Send Sign-In Link"}
                     </Button>
                   </form>
                 </div>
               </motion.div>
             ) : (
-              <motion.div key="otp-step" initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }}>
-                <h1 className="text-4xl font-display font-bold mb-2">Check Your Email</h1>
-                <p className="text-muted-foreground mb-8">
-                  We sent a 6-digit code to <span className="text-foreground font-medium">{email}</span>. Enter it below.
-                </p>
-
-                <div className="bg-card border border-border/50 rounded-2xl p-8 shadow-xl mb-6">
-                  <form onSubmit={handleVerifyOtp} className="space-y-4">
-                    <div className="relative">
-                      <KeyRound className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-                      <input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="[0-9]*"
-                        maxLength={6}
-                        placeholder="6-digit OTP code"
-                        value={otp}
-                        onChange={e => setOtp(e.target.value.replace(/\D/g, ""))}
-                        required
-                        autoFocus
-                        className="w-full h-12 pl-10 pr-4 bg-secondary border border-border/50 rounded-xl text-sm tracking-widest font-mono focus:outline-none focus:border-primary transition-colors"
-                      />
-                    </div>
-
-                    {success && (
-                      <p className="text-sm text-green-600 bg-green-50 dark:bg-green-950/30 border border-green-200 dark:border-green-900 rounded-lg px-3 py-2">
-                        {success}
-                      </p>
-                    )}
-                    {error && (
-                      <p className="text-sm text-destructive bg-destructive/10 border border-destructive/20 rounded-lg px-3 py-2">
-                        {error}
-                      </p>
-                    )}
-
-                    <Button
-                      type="submit"
-                      disabled={submitting || otp.length < 6}
-                      className="w-full h-12 text-base bg-primary text-primary-foreground hover:bg-primary/90 rounded-xl"
-                    >
-                      {submitting ? "Verifying..." : "Verify & Sign In"}
-                    </Button>
-                  </form>
-
-                  <div className="mt-4 text-center">
-                    <button
-                      type="button"
-                      onClick={() => { setStep("email"); setOtp(""); setError(null); setSuccess(null); }}
-                      className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1 mx-auto transition-colors"
-                    >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Change email or resend
-                    </button>
+              <motion.div key="sent-step" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0 }}>
+                <div className="bg-card border border-border/50 rounded-2xl p-10 shadow-xl text-center">
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="w-8 h-8 text-primary" />
                   </div>
+                  <h2 className="text-2xl font-display font-bold mb-3">Check Your Email</h2>
+                  <p className="text-muted-foreground mb-2">
+                    We sent a sign-in link to
+                  </p>
+                  <p className="font-semibold text-foreground mb-6">{email}</p>
+                  <p className="text-sm text-muted-foreground mb-8">
+                    Click the link in the email to sign in. The link expires in 1 hour.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => { setStep("email"); setError(null); }}
+                    className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1.5 mx-auto transition-colors"
+                  >
+                    <ArrowLeft className="w-3.5 h-3.5" /> Use a different email
+                  </button>
                 </div>
               </motion.div>
             )}
           </AnimatePresence>
 
-          <div className="text-center text-sm text-muted-foreground">
+          <div className="text-center text-sm text-muted-foreground mt-6">
             By continuing, you agree to our{" "}
             <a href="/terms-of-service" className="underline hover:text-primary">Terms of Service</a>{" "}
             and{" "}
