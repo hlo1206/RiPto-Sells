@@ -51,8 +51,9 @@ The project deploys to Vercel as a static frontend + serverless API:
   - `GET /api/products/[id]` — single product
   - `GET /api/categories` — list categories
   - `GET /api/healthz` — health check
-- **Required Vercel env var**: `DATABASE_URL` (Replit PostgreSQL connection string)
-- No separate API server needed on Vercel; Express server is for local Replit dev only.
+- **No database needed** — API functions serve static mock data from `api/_data.ts`
+- **No environment variables needed** for the API — zero config required on Vercel
+- Express server (`artifacts/api-server`) is for local Replit dev only
 
 ## Structure
 
