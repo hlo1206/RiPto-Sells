@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "RiPto Sells"
+version = "1.0.0"
+id = "artifacts/ripto-sells"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+localPort = 21193
+name = "web"
+paths = ["/"]
+
+[services.development]
+run = "pnpm --filter @workspace/ripto-sells run dev"
+
+[services.env]
+PORT = "21193"
+BASE_PATH = "/"
+
+[services.production]
+build = ["pnpm", "--filter", "@workspace/ripto-sells", "run", "build"]
+publicDir = "artifacts/ripto-sells/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"

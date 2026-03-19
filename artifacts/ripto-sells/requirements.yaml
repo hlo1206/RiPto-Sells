@@ -1,0 +1,19 @@
+packages:
+  "framer-motion": "For luxurious page transitions and smooth reveal animations"
+  "lucide-react": "For beautiful consistent iconography"
+  "clsx": "For merging tailwind classes easily"
+  "tailwind-merge": "For merging tailwind classes safely"
+  "@workspace/replit-auth-web": "Workspace authentication hook"
+
+images:
+  - path: "artifacts/ripto-sells/public/images/hero-luxury.png"
+    description: "A dark, moody, cinematic and luxurious e-commerce hero background. Deep navy blue background with abstract elegant gold and amber light streaks, very premium, 8k resolution, photorealistic."
+    aspect_ratio: "16:9"
+  - path: "artifacts/ripto-sells/public/images/logo-mark.png"
+    description: "A sophisticated, minimalist luxury logo mark for 'RiPto Sells'. A stylized, elegant golden 'R' on a transparent background. Premium fashion brand style."
+    aspect_ratio: "1:1"
+
+notes:
+  - "Assuming standard Replit auth flow for login/logout via @workspace/replit-auth-web"
+  - "App uses wouter for routing"
+  - "Using a fallback mock data strategy if the API returns empty arrays so the template always looks fully populated and luxurious."
