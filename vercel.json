@@ -1,0 +1,12 @@
+{
+  "buildCommand": "pnpm run typecheck && pnpm --filter @workspace/ripto-sells run build",
+  "outputDirectory": "artifacts/ripto-sells/dist/public",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "env": {
+    "BASE_PATH": "/"
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
