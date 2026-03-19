@@ -32,7 +32,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
               {product.badge}
             </span>
           )}
-          {!product.inStock && (
+          {product.inStock === false && (
             <span className="bg-destructive text-destructive-foreground text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-lg">
               Sold Out
             </span>
@@ -64,7 +64,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
               size="icon" 
               className="rounded-full w-12 h-12 shadow-xl shadow-primary/20 bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300 hover:scale-110 disabled:opacity-50"
               onClick={handleAddClick}
-              disabled={!product.inStock}
+              disabled={product.inStock === false}
             >
               <ShoppingCart className="w-5 h-5" />
             </Button>
@@ -113,7 +113,7 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
               <button 
                 className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center text-foreground group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 disabled:opacity-50"
                 onClick={handleAddClick}
-                disabled={!product.inStock}
+                disabled={product.inStock === false}
                 aria-label="Add to cart"
               >
                 <ShoppingCart className="w-4 h-4" />
