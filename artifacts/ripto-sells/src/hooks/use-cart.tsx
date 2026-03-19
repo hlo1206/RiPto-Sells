@@ -1,15 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
-import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
-import { 
-  useGetCart, 
-  useAddToCart, 
-  useUpdateCartItem, 
-  useRemoveFromCart, 
-  useClearCart,
-  Product
-} from "@workspace/api-client-react";
-import { useQueryClient } from "@tanstack/react-query";
-import { getGetCartQueryKey } from "@workspace/api-client-react";
+import type { Product } from "@workspace/api-client-react";
 
 export type LocalCartItem = {
   productId: number;
@@ -31,10 +21,7 @@ interface CartContextType {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const { isAuthenticated, isLoading: isAuthLoading } = useSupabaseAuth();
-  const queryClient = useQueryClient();
-  
-  const [localItems, setLocalItems] = useState<LocalCartItem[]>(() => {
+  const [items, setItems] = useState<LocalCartItem[]>(() => {
     try {
       const stored = localStorage.getItem("ripto_cart");
       return stored ? JSON.parse(stored) : [];
@@ -44,58 +31,31 @@ export function CartProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    if (!isAuthenticated && !isAuthLoading) {
-      localStorage.setItem("ripto_cart", JSON.stringify(localItems));
+    try {
+      localStorage.setItem("ripto_cart", JSON.stringify(items));
+    } catch {
+      // ignore
     }
-  }, [localItems, isAuthenticated, isAuthLoading]);
-
-  const { data: apiCart, isLoading: isApiLoading } = useGetCart({
-    query: { enabled: isAuthenticated }
-  });
-
-  const { mutate: apiAdd } = useAddToCart({
-    mutation: { onSuccess: () => queryClient.invalidateQueries({ queryKey: getGetCartQueryKey() }) }
-  });
-  
-  const { mutate: apiUpdate } = useUpdateCartItem({
-    mutation: { onSuccess: () => queryClient.invalidateQueries({ queryKey: getGetCartQueryKey() }) }
-  });
-  
-  const { mutate: apiRemove } = useRemoveFromCart({
-    mutation: { onSuccess: () => queryClient.invalidateQueries({ queryKey: getGetCartQueryKey() }) }
-  });
-  
-  const { mutate: apiClear } = useClearCart({
-    mutation: { onSuccess: () => queryClient.invalidateQueries({ queryKey: getGetCartQueryKey() }) }
-  });
-
-  const isLoading = isAuthLoading || (isAuthenticated ? isApiLoading : false);
-  
-  const items: LocalCartItem[] = isAuthenticated 
-    ? (apiCart || []).map(item => ({ 
-        productId: item.productId, 
-        quantity: item.quantity, 
-        product: item.product 
-      }))
-    : localItems;
+  }, [items]);
 
   const totalItems = items.reduce((acc, item) => acc + item.quantity, 0);
-  const subtotal = items.reduce((acc, item) => acc + ((item.product?.price || 0) * item.quantity), 0);
+  const subtotal = items.reduce(
+    (acc, item) => acc + (item.product?.price || 0) * item.quantity,
+    0
+  );
 
   const addItem = (product: Product, quantity: number = 1) => {
-    if (isAuthenticated) {
-      apiAdd({ data: { productId: product.id, quantity } });
-    } else {
-      setLocalItems(prev => {
-        const existing = prev.find(i => i.productId === product.id);
-        if (existing) {
-          return prev.map(i => i.productId === product.id 
-            ? { ...i, quantity: i.quantity + quantity } 
-            : i);
-        }
-        return [...prev, { productId: product.id, quantity, product }];
-      });
-    }
+    setItems(prev => {
+      const existing = prev.find(i => i.productId === product.id);
+      if (existing) {
+        return prev.map(i =>
+          i.productId === product.id
+            ? { ...i, quantity: i.quantity + quantity }
+            : i
+        );
+      }
+      return [...prev, { productId: product.id, quantity, product }];
+    });
   };
 
   const updateQuantity = (productId: number, quantity: number) => {
@@ -103,32 +63,23 @@ export function CartProvider({ children }: { children: ReactNode }) {
       removeItem(productId);
       return;
     }
-    
-    if (isAuthenticated) {
-      apiUpdate({ productId, data: { quantity } });
-    } else {
-      setLocalItems(prev => prev.map(i => i.productId === productId ? { ...i, quantity } : i));
-    }
+    setItems(prev =>
+      prev.map(i => (i.productId === productId ? { ...i, quantity } : i))
+    );
   };
 
   const removeItem = (productId: number) => {
-    if (isAuthenticated) {
-      apiRemove({ productId });
-    } else {
-      setLocalItems(prev => prev.filter(i => i.productId !== productId));
-    }
+    setItems(prev => prev.filter(i => i.productId !== productId));
   };
 
   const clear = () => {
-    if (isAuthenticated) {
-      apiClear();
-    } else {
-      setLocalItems([]);
-    }
+    setItems([]);
   };
 
   return (
-    <CartContext.Provider value={{ items, totalItems, subtotal, isLoading, addItem, updateQuantity, removeItem, clear }}>
+    <CartContext.Provider
+      value={{ items, totalItems, subtotal, isLoading: false, addItem, updateQuantity, removeItem, clear }}
+    >
       {children}
     </CartContext.Provider>
   );
