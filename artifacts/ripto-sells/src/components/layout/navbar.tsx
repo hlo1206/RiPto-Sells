@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
-import { useAuth } from "@workspace/replit-auth-web";
+import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
 import { Search, ShoppingBag, User, Menu, X, ChevronRight, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
@@ -12,7 +12,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [, setLocation] = useLocation();
-  const { user, isAuthenticated, login, logout } = useAuth();
+  const { user, isAuthenticated, signOut } = useSupabaseAuth();
   const { totalItems } = useCart();
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -33,6 +33,9 @@ export function Navbar() {
       setMobileMenuOpen(false);
     }
   };
+
+  const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Member";
+  const initial = displayName[0]?.toUpperCase() ?? "U";
 
   return (
     <>
@@ -95,22 +98,23 @@ export function Navbar() {
                 <div className="hidden sm:flex items-center gap-3 ml-2">
                   <div className="text-xs text-right">
                     <p className="text-muted-foreground">Welcome,</p>
-                    <p className="font-medium truncate max-w-[100px]">{user?.firstName || user?.username || 'Guest'}</p>
+                    <p className="font-medium truncate max-w-[100px]">{displayName}</p>
                   </div>
-                  <Button variant="ghost" size="icon" onClick={logout} className="hover:text-destructive rounded-full" title="Log out">
+                  <Button variant="ghost" size="icon" onClick={signOut} className="hover:text-destructive rounded-full" title="Log out">
                     <LogOut className="w-5 h-5" />
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  onClick={login}
-                  className="rounded-full hover:bg-primary/10 hover:text-primary"
-                  title="Sign In"
-                >
-                  <User className="w-5 h-5" />
-                </Button>
+                <Link href="/login">
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="rounded-full hover:bg-primary/10 hover:text-primary"
+                    title="Sign In"
+                  >
+                    <User className="w-5 h-5" />
+                  </Button>
+                </Link>
               )}
 
               <Link href="/cart">
@@ -189,21 +193,23 @@ export function Navbar() {
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
-                        {(user?.firstName?.[0] || user?.username?.[0] || 'U').toUpperCase()}
+                        {initial}
                       </div>
                       <div>
-                        <p className="text-sm font-medium">{user?.firstName || user?.username}</p>
-                        <p className="text-xs text-muted-foreground">Logged in</p>
+                        <p className="text-sm font-medium">{displayName}</p>
+                        <p className="text-xs text-muted-foreground">Signed in</p>
                       </div>
                     </div>
-                    <Button variant="ghost" size="icon" onClick={() => { logout(); setMobileMenuOpen(false); }}>
+                    <Button variant="ghost" size="icon" onClick={() => { signOut(); setMobileMenuOpen(false); }}>
                       <LogOut className="w-5 h-5" />
                     </Button>
                   </div>
                 ) : (
-                  <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90" onClick={() => { login(); setMobileMenuOpen(false); }}>
-                    Sign In to Account
-                  </Button>
+                  <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
+                    <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
+                      Sign In to Account
+                    </Button>
+                  </Link>
                 )}
               </div>
             </motion.div>

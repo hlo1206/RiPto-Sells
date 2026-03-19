@@ -11,10 +11,36 @@ pnpm workspace monorepo using TypeScript. Each package manages its own dependenc
 - **Package manager**: pnpm
 - **TypeScript version**: 5.9
 - **API framework**: Express 5
-- **Database**: PostgreSQL + Drizzle ORM
+- **Database**: PostgreSQL + Drizzle ORM (dev), Supabase (production)
+- **Auth**: Supabase Auth (email/password + Google OAuth)
 - **Validation**: Zod (`zod/v4`), `drizzle-zod`
 - **API codegen**: Orval (from OpenAPI spec)
 - **Build**: esbuild (CJS bundle)
+
+## Supabase Configuration
+
+- **URL**: `https://zneruehlvfykbxvegvwb.supabase.co`
+- **Env Vars**: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY` (set as shared env vars)
+- **Client**: `artifacts/ripto-sells/src/lib/supabase.ts`
+- **Auth Hook**: `artifacts/ripto-sells/src/hooks/use-supabase-auth.tsx` (SupabaseAuthProvider + useSupabaseAuth)
+
+## Frontend (artifacts/ripto-sells)
+
+Enhanced landing page with sections:
+- Hero with animated orb and scroll indicator
+- Stats strip (50K+ customers, 200+ brands, etc.)
+- Value propositions (Delivery, Authenticity, Curated, Concierge)
+- Categories grid (3 large + 4 small)
+- New Arrivals section
+- Editorial banner (Summer Edit)
+- Featured Artifacts (5 products)
+- Bestsellers section
+- Brands ticker (marquee animation)
+- Testimonials (3 customer quotes)
+- Split promo (Perfumes + Home Decor)
+- Inner Circle CTA with dual buttons
+
+Products: 6+ per category (42+ total across 7 categories), all with Unsplash images.
 
 ## Structure
 
