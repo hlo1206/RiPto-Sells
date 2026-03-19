@@ -42,12 +42,31 @@ Enhanced landing page with sections:
 
 Products: 6+ per category (42+ total across 7 categories), all with Unsplash images.
 
+## Vercel Deployment
+
+The project deploys to Vercel as a static frontend + serverless API:
+- **Frontend**: `artifacts/ripto-sells` → built to `/dist`
+- **Serverless API**: `/api` directory — Vercel auto-compiles these TypeScript files as serverless functions
+  - `GET /api/products` — list products (query: categoryId, featured, search)
+  - `GET /api/products/[id]` — single product
+  - `GET /api/categories` — list categories
+  - `GET /api/healthz` — health check
+- **Required Vercel env var**: `DATABASE_URL` (Replit PostgreSQL connection string)
+- No separate API server needed on Vercel; Express server is for local Replit dev only.
+
 ## Structure
 
 ```text
 artifacts-monorepo/
+├── api/                    # Vercel serverless functions (production API)
+│   ├── products/
+│   │   ├── index.ts        # GET /api/products
+│   │   └── [id].ts         # GET /api/products/:id
+│   ├── categories/
+│   │   └── index.ts        # GET /api/categories
+│   └── healthz.ts          # GET /api/healthz
 ├── artifacts/              # Deployable applications
-│   └── api-server/         # Express API server
+│   └── api-server/         # Express API server (local dev only)
 ├── lib/                    # Shared libraries
 │   ├── api-spec/           # OpenAPI spec + Orval codegen config
 │   ├── api-client-react/   # Generated React Query hooks
