@@ -26,22 +26,26 @@ import TrackOrder from "@/pages/track-order";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
-class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean }> {
+class ErrorBoundary extends Component<{ children: ReactNode }, { hasError: boolean; error: string }> {
   constructor(props: { children: ReactNode }) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { hasError: false, error: "" };
   }
-  static getDerivedStateFromError() {
-    return { hasError: true };
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error: error?.message || String(error) };
+  }
+  componentDidCatch(error: Error) {
+    console.error("App crash:", error);
   }
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen flex items-center justify-center bg-background text-foreground">
-          <div className="text-center p-8">
-            <h1 className="text-2xl font-bold mb-4">Something went wrong</h1>
+        <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "#0a0a0a", color: "#fff", fontFamily: "sans-serif", padding: "20px" }}>
+          <div style={{ textAlign: "center", maxWidth: "500px" }}>
+            <h1 style={{ fontSize: "20px", marginBottom: "12px" }}>Something went wrong</h1>
+            <p style={{ fontSize: "13px", color: "#888", marginBottom: "16px", wordBreak: "break-all" }}>{this.state.error}</p>
             <button
-              className="px-6 py-2 bg-primary text-primary-foreground rounded-full"
+              style={{ padding: "8px 24px", background: "#D4AF37", color: "#000", border: "none", borderRadius: "999px", cursor: "pointer" }}
               onClick={() => window.location.reload()}
             >
               Reload Page
