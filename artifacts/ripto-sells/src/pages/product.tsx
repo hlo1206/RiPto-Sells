@@ -127,10 +127,10 @@ export default function ProductDetail() {
             </div>
 
             <div className="flex items-end gap-3 mb-8">
-              <span className="text-3xl font-bold text-foreground">₹{product.price.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-foreground">₹{Number(product.price || 0).toFixed(2)}</span>
               {product.originalPrice && (
                 <span className="text-lg text-muted-foreground line-through mb-1">
-                  ₹{product.originalPrice.toFixed(2)}
+                  ₹{Number(product.originalPrice).toFixed(2)}
                 </span>
               )}
             </div>
@@ -172,7 +172,7 @@ export default function ProductDetail() {
                 {product.inStock ? (
                   <>
                     <ShoppingBag className="w-5 h-5 mr-2" />
-                    Add to Cart • ₹{(product.price * quantity).toFixed(2)}
+                    Add to Cart • ₹{(Number(product.price || 0) * quantity).toFixed(2)}
                   </>
                 ) : "Sold Out"}
               </Button>
