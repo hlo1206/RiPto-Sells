@@ -14,6 +14,12 @@ import ProductDetail from "@/pages/product";
 import Cart from "@/pages/cart";
 import Search from "@/pages/search";
 import Login from "@/pages/login";
+import PrivacyPolicy from "@/pages/privacy-policy";
+import TermsOfService from "@/pages/terms-of-service";
+import FAQ from "@/pages/faq";
+import ShippingReturns from "@/pages/shipping-returns";
+import TrackOrder from "@/pages/track-order";
+import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 
 const queryClient = new QueryClient({
@@ -48,6 +54,12 @@ function Router() {
         <Route path="/cart" component={Cart} />
         <Route path="/search" component={Search} />
         <Route path="/login" component={Login} />
+        <Route path="/privacy-policy" component={PrivacyPolicy} />
+        <Route path="/terms-of-service" component={TermsOfService} />
+        <Route path="/faq" component={FAQ} />
+        <Route path="/shipping-returns" component={ShippingReturns} />
+        <Route path="/track-order" component={TrackOrder} />
+        <Route path="/contact" component={Contact} />
         <Route component={NotFound} />
       </Switch>
     </AppLayout>

@@ -126,10 +126,10 @@ export default function ProductDetail() {
             </div>
 
             <div className="flex items-end gap-3 mb-8">
-              <span className="text-3xl font-bold text-foreground">${product.price.toFixed(2)}</span>
+              <span className="text-3xl font-bold text-foreground">₹{product.price.toFixed(2)}</span>
               {product.originalPrice && (
                 <span className="text-lg text-muted-foreground line-through mb-1">
-                  ${product.originalPrice.toFixed(2)}
+                  ₹{product.originalPrice.toFixed(2)}
                 </span>
               )}
             </div>
@@ -171,7 +171,7 @@ export default function ProductDetail() {
                 {product.inStock ? (
                   <>
                     <ShoppingBag className="w-5 h-5 mr-2" />
-                    Add to Cart • ${(product.price * quantity).toFixed(2)}
+                    Add to Cart • ₹{(product.price * quantity).toFixed(2)}
                   </>
                 ) : "Sold Out"}
               </Button>
@@ -183,7 +183,7 @@ export default function ProductDetail() {
                 <Truck className="w-5 h-5 text-primary shrink-0 mt-0.5" />
                 <div>
                   <h4 className="font-semibold text-sm mb-1">Free Global Shipping</h4>
-                  <p className="text-xs text-muted-foreground">On all orders over $200</p>
+                  <p className="text-xs text-muted-foreground">On all orders over ₹200</p>
                 </div>
               </div>
               <div className="flex items-start gap-3">

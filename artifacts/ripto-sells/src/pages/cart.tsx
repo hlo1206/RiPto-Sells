@@ -71,7 +71,7 @@ export default function Cart() {
                           {item.product?.name || "Unknown Product"}
                         </Link>
                         <p className="text-muted-foreground font-medium mb-4 sm:mb-0">
-                          ${(item.product?.price || 0).toFixed(2)}
+                          ₹{(item.product?.price || 0).toFixed(2)}
                         </p>
                       </div>
 
@@ -114,12 +114,12 @@ export default function Cart() {
               <div className="space-y-4 text-sm mb-6 pb-6 border-b border-border/50">
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Subtotal</span>
-                  <span className="font-medium">${subtotal.toFixed(2)}</span>
+                  <span className="font-medium">₹{subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-muted-foreground">Estimated Shipping</span>
                   <span className="font-medium">
-                    {shipping === 0 ? <span className="text-primary">Complimentary</span> : `$${shipping.toFixed(2)}`}
+                    {shipping === 0 ? <span className="text-primary">Complimentary</span> : `₹${shipping.toFixed(2)}`}
                   </span>
                 </div>
                 <div className="flex justify-between">
@@ -130,7 +130,7 @@ export default function Cart() {
 
               <div className="flex justify-between items-center mb-8">
                 <span className="text-lg font-semibold">Total</span>
-                <span className="text-2xl font-bold">${total.toFixed(2)}</span>
+                <span className="text-2xl font-bold">₹{total.toFixed(2)}</span>
               </div>
 
               {isAuthenticated ? (
