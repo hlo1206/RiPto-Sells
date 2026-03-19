@@ -57,13 +57,20 @@ export function Navbar() {
                 <Menu className="w-6 h-6" />
               </button>
               
-              <Link href="/" className="flex items-center gap-2 group">
-                <div className="w-8 h-8 rounded bg-primary text-primary-foreground flex items-center justify-center font-display font-bold text-xl shadow-lg shadow-primary/20 group-hover:scale-105 transition-transform">
-                  R
+              <Link href="/" className="flex items-center gap-3 group">
+                {/* Diamond crown emblem */}
+                <div className="relative flex-shrink-0 group-hover:scale-105 transition-transform duration-300">
+                  <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#D4AF37" strokeWidth="1.5"/>
+                    <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="#D4AF37" fillOpacity="0.12"/>
+                    <text x="18" y="22" textAnchor="middle" fontSize="13" fontFamily="Georgia,serif" fontWeight="bold" fill="#D4AF37" letterSpacing="0">RS</text>
+                  </svg>
                 </div>
-                <span className="font-display font-bold text-xl tracking-wide hidden sm:block">
-                  RiPto <span className="text-primary font-normal italic">Sells</span>
-                </span>
+                {/* Wordmark */}
+                <div className="hidden sm:flex flex-col leading-none">
+                  <span className="font-display font-bold text-[15px] tracking-[0.18em] text-foreground uppercase">Ripto</span>
+                  <span className="font-sans font-light text-[10px] tracking-[0.35em] text-primary uppercase mt-0.5">Sells</span>
+                </div>
               </Link>
             </div>
 
@@ -151,9 +158,17 @@ export function Navbar() {
               className="fixed top-0 left-0 bottom-0 w-3/4 max-w-sm bg-card border-r border-border z-50 flex flex-col lg:hidden shadow-2xl"
             >
               <div className="p-5 flex items-center justify-between border-b border-border/50">
-                <span className="font-display font-bold text-xl">
-                  RiPto <span className="text-primary italic">Sells</span>
-                </span>
+                <div className="flex items-center gap-2.5">
+                  <svg width="30" height="30" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <polygon points="18,2 34,10 34,26 18,34 2,26 2,10" fill="none" stroke="#D4AF37" strokeWidth="1.5"/>
+                    <polygon points="18,8 28,13 28,23 18,28 8,23 8,13" fill="#D4AF37" fillOpacity="0.12"/>
+                    <text x="18" y="22" textAnchor="middle" fontSize="13" fontFamily="Georgia,serif" fontWeight="bold" fill="#D4AF37">RS</text>
+                  </svg>
+                  <div className="flex flex-col leading-none">
+                    <span className="font-display font-bold text-[14px] tracking-[0.18em] text-foreground uppercase">Ripto</span>
+                    <span className="font-sans font-light text-[9px] tracking-[0.35em] text-primary uppercase mt-0.5">Sells</span>
+                  </div>
+                </div>
                 <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-muted-foreground hover:text-foreground">
                   <X className="w-5 h-5" />
                 </button>
