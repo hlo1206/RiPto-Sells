@@ -275,11 +275,33 @@ async function parseSuccessBody(
   }
 }
 
+function applyBaseUrl(input: RequestInfo | URL): RequestInfo | URL {
+  const baseUrl = typeof import.meta !== "undefined"
+    ? (import.meta as Record<string, unknown>).env
+      ? ((import.meta as Record<string, Record<string, string>>).env.VITE_API_BASE_URL ?? "")
+      : ""
+    : "";
+
+  if (!baseUrl) return input;
+
+  const url = resolveUrl(input);
+  if (url.startsWith("http://") || url.startsWith("https://")) return input;
+
+  const trimmedBase = baseUrl.replace(/\/$/, "");
+  const withBase = url.startsWith("/") ? `${trimmedBase}${url}` : `${trimmedBase}/${url}`;
+
+  if (typeof input === "string") return withBase;
+  if (isUrl(input)) return new URL(withBase);
+  return new Request(withBase, input as Request);
+}
+
 export async function customFetch<T = unknown>(
   input: RequestInfo | URL,
   options: CustomFetchOptions = {},
 ): Promise<T> {
   const { responseType = "auto", headers: headersInit, ...init } = options;
+
+  input = applyBaseUrl(input);
 
   const method = resolveMethod(input, init.method);
 
