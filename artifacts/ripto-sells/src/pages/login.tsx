@@ -9,7 +9,7 @@ type Mode = "login" | "signup";
 type Step = "form" | "otp-confirm";
 
 export default function Login() {
-  const { isAuthenticated, isLoading, signInWithPassword, signUp, verifyOtp, signInWithGoogle } = useSupabaseAuth();
+  const { isAuthenticated, isLoading, signInWithPassword, signUp, sendConfirmationOtp, verifyOtp, signInWithGoogle } = useSupabaseAuth();
   const [, setLocation] = useLocation();
 
   const [mode, setMode] = useState<Mode>("login");
@@ -54,12 +54,35 @@ export default function Login() {
     setError(null);
     setSubmitting(true);
     const { error, needsConfirmation } = await signUp(email, password);
+    if (error) {
+      setSubmitting(false);
+      setError(error);
+      return;
+    }
+    if (needsConfirmation) {
+      const { error: otpError } = await sendConfirmationOtp(email);
+      setSubmitting(false);
+      if (otpError) {
+        setError("Account created but we couldn't send the code. Try logging in directly.");
+        return;
+      }
+      setSuccess("Code sent to your email. Enter it below to confirm your account.");
+      setStep("otp-confirm");
+    } else {
+      setSubmitting(false);
+    }
+  };
+
+  const handleResendOtp = async () => {
+    setError(null);
+    setSuccess(null);
+    setSubmitting(true);
+    const { error } = await sendConfirmationOtp(email);
     setSubmitting(false);
     if (error) {
-      setError(error);
-    } else if (needsConfirmation) {
-      setSuccess("Account created! Enter the 6-digit code sent to your email to confirm.");
-      setStep("otp-confirm");
+      setError("Could not resend code. Please try again.");
+    } else {
+      setSuccess("New code sent! Check your inbox.");
     }
   };
 
