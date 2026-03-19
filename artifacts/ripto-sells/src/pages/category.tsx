@@ -10,7 +10,7 @@ export default function CategoryProducts() {
   
   // Get category info to find its ID
   const { data: apiCategories } = useGetCategories();
-  const categories = apiCategories && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
+  const categories = Array.isArray(apiCategories) && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
   const category = categories.find(c => c.slug === slug);
   
   // Use the categoryId to fetch products
@@ -19,7 +19,7 @@ export default function CategoryProducts() {
   );
 
   // Fallback to mock data if API is empty
-  const products = apiProducts && apiProducts.length > 0 
+  const products = Array.isArray(apiProducts) && apiProducts.length > 0 
     ? apiProducts 
     : MOCK_PRODUCTS.filter(p => p.categoryId === category?.id);
 

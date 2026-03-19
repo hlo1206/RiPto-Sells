@@ -14,7 +14,8 @@ export function Navbar() {
   const { user, isAuthenticated, signOut } = useSupabaseAuth();
   const { totalItems } = useCart();
 
-  const { data: categories = MOCK_CATEGORIES } = useGetCategories();
+  const { data: categoriesData } = useGetCategories();
+  const categories = Array.isArray(categoriesData) && categoriesData.length > 0 ? categoriesData : MOCK_CATEGORIES;
 
   useEffect(() => {
     const handleScroll = () => {

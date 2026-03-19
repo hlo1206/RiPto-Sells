@@ -58,8 +58,8 @@ export default function Home() {
   const { data: apiProducts, isLoading: productsLoading } = useGetProducts({ featured: true });
   const { data: apiCategories } = useGetCategories();
 
-  const products = apiProducts && apiProducts.length > 0 ? apiProducts : MOCK_PRODUCTS.filter(p => p.featured);
-  const categories = apiCategories && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
+  const products = Array.isArray(apiProducts) && apiProducts.length > 0 ? apiProducts : MOCK_PRODUCTS.filter(p => p.featured);
+  const categories = Array.isArray(apiCategories) && apiCategories.length > 0 ? apiCategories : MOCK_CATEGORIES;
 
   const newArrivals = MOCK_PRODUCTS.filter(p => p.badge === "New Arrival").slice(0, 4);
   const bestsellers = MOCK_PRODUCTS.filter(p => p.badge === "Bestseller").slice(0, 4);
