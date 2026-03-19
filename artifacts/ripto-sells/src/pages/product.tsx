@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useParams, Link } from "wouter";
 import { motion } from "framer-motion";
-import { Star, Truck, Shield, RefreshCcw, Minus, Plus, ShoppingBag } from "lucide-react";
+import { Star, Truck, Shield, RefreshCcw, Minus, Plus, ShoppingBag, BadgeCheck } from "lucide-react";
 import { useGetProduct } from "@workspace/api-client-react";
-import { MOCK_PRODUCTS } from "@/lib/mock-data";
+import { MOCK_PRODUCTS, MOCK_REVIEWS } from "@/lib/mock-data";
 import { useCart } from "@/hooks/use-cart";
 import { Button } from "@/components/ui/button";
 
@@ -205,6 +205,70 @@ export default function ProductDetail() {
 
           </div>
         </div>
+
+        {/* Reviews Section */}
+        {MOCK_REVIEWS[productId] && (
+          <div className="mt-20 pt-16 border-t border-border/50">
+            <div className="flex items-center justify-between mb-10">
+              <div>
+                <h2 className="text-3xl font-display font-bold mb-1">Customer Reviews</h2>
+                <div className="flex items-center gap-3 mt-2">
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map(s => (
+                      <Star key={s} className={`w-5 h-5 ${s <= Math.round(product.rating || 4.5) ? "fill-primary text-primary" : "fill-muted text-muted"}`} />
+                    ))}
+                  </div>
+                  <span className="text-muted-foreground text-sm">{product.reviewCount || 120} verified reviews</span>
+                </div>
+              </div>
+              <div className="text-right hidden sm:block">
+                <div className="text-4xl font-bold text-primary">{product.rating || "4.8"}</div>
+                <div className="text-xs text-muted-foreground mt-1">out of 5</div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {MOCK_REVIEWS[productId].map((review) => (
+                <motion.div
+                  key={review.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="bg-card border border-border/60 rounded-2xl p-6 flex flex-col gap-4"
+                >
+                  <div className="flex items-start justify-between">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-sm shrink-0">
+                        {review.initials}
+                      </div>
+                      <div>
+                        <div className="font-semibold text-sm">{review.author}</div>
+                        <div className="text-xs text-muted-foreground">{review.date}</div>
+                      </div>
+                    </div>
+                    {review.verified && (
+                      <div className="flex items-center gap-1 text-green-500 text-xs shrink-0">
+                        <BadgeCheck className="w-3.5 h-3.5" />
+                        <span>Verified</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {[1,2,3,4,5].map(s => (
+                      <Star key={s} className={`w-3.5 h-3.5 ${s <= review.rating ? "fill-primary text-primary" : "fill-muted text-muted"}`} />
+                    ))}
+                  </div>
+
+                  <div>
+                    <h4 className="font-semibold text-sm mb-1.5">{review.title}</h4>
+                    <p className="text-muted-foreground text-sm leading-relaxed">{review.body}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
