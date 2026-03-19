@@ -16,6 +16,8 @@ import ProductDetail from "@/pages/product";
 import Cart from "@/pages/cart";
 import Search from "@/pages/search";
 import Login from "@/pages/login";
+import ForgotPassword from "@/pages/forgot-password";
+import ChangePassword from "@/pages/change-password";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import FAQ from "@/pages/faq";
@@ -65,6 +67,8 @@ function Router() {
         <Route path="/cart" component={Cart} />
         <Route path="/search" component={Search} />
         <Route path="/login" component={Login} />
+        <Route path="/forgot-password" component={ForgotPassword} />
+        <Route path="/change-password" component={ChangePassword} />
         <Route path="/privacy-policy" component={PrivacyPolicy} />
         <Route path="/terms-of-service" component={TermsOfService} />
         <Route path="/faq" component={FAQ} />

@@ -5,6 +5,7 @@ import { useGetProducts, useGetCategories } from "@workspace/api-client-react";
 import { MOCK_PRODUCTS, MOCK_CATEGORIES, getMockCategoryImageUrl } from "@/lib/mock-data";
 import { ProductCard } from "@/components/product-card";
 import { Button } from "@/components/ui/button";
+import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
 
 const fadeIn = {
   hidden: { opacity: 0, y: 30 },
@@ -53,6 +54,7 @@ const STATS = [
 ];
 
 export default function Home() {
+  const { isAuthenticated } = useSupabaseAuth();
   const { data: apiProducts, isLoading: productsLoading } = useGetProducts({ featured: true });
   const { data: apiCategories } = useGetCategories();
 
@@ -488,7 +490,7 @@ export default function Home() {
       </section>
 
       {/* ── INNER CIRCLE CTA ─────────────────────────────────────────────── */}
-      <section className="py-28 relative overflow-hidden">
+      {!isAuthenticated && <section className="py-28 relative overflow-hidden">
         <div className="absolute inset-0 bg-primary/5" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[900px] bg-primary/10 blur-[140px] rounded-full pointer-events-none" />
         
@@ -521,7 +523,7 @@ export default function Home() {
             </div>
           </motion.div>
         </div>
-      </section>
+      </section>}
     </div>
   );
 }

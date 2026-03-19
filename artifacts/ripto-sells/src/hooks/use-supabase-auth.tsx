@@ -7,10 +7,13 @@ interface AuthContextType {
   user: User | null;
   isLoading: boolean;
   isAuthenticated: boolean;
-  signInWithOtp: (email: string) => Promise<{ error: string | null }>;
+  signUp: (email: string, password: string) => Promise<{ error: string | null; needsConfirmation: boolean }>;
   verifyOtp: (email: string, token: string) => Promise<{ error: string | null }>;
+  signInWithPassword: (email: string, password: string) => Promise<{ error: string | null }>;
   signInWithGoogle: () => Promise<{ error: string | null }>;
   signOut: () => Promise<void>;
+  resetPassword: (email: string) => Promise<{ error: string | null }>;
+  updatePassword: (password: string) => Promise<{ error: string | null }>;
 }
 
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -33,20 +36,30 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
     return () => subscription.unsubscribe();
   }, []);
 
-  const signInWithOtp = async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({
+  const signUp = async (email: string, password: string) => {
+    const { data, error } = await supabase.auth.signUp({
       email,
-      options: { shouldCreateUser: true },
+      password,
+      options: {
+        emailRedirectTo: window.location.origin + import.meta.env.BASE_URL,
+      },
     });
-    return { error: error?.message ?? null };
+    if (error) return { error: error.message, needsConfirmation: false };
+    const needsConfirmation = !data.session && !!data.user;
+    return { error: null, needsConfirmation };
   };
 
   const verifyOtp = async (email: string, token: string) => {
     const { error } = await supabase.auth.verifyOtp({
       email,
       token,
-      type: "email",
+      type: "signup",
     });
+    return { error: error?.message ?? null };
+  };
+
+  const signInWithPassword = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
     return { error: error?.message ?? null };
   };
 
@@ -64,16 +77,31 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
     await supabase.auth.signOut();
   };
 
+  const resetPassword = async (email: string) => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin + import.meta.env.BASE_URL + "change-password",
+    });
+    return { error: error?.message ?? null };
+  };
+
+  const updatePassword = async (password: string) => {
+    const { error } = await supabase.auth.updateUser({ password });
+    return { error: error?.message ?? null };
+  };
+
   return (
     <AuthContext.Provider value={{
       session,
       user: session?.user ?? null,
       isLoading,
       isAuthenticated: !!session,
-      signInWithOtp,
+      signUp,
       verifyOtp,
+      signInWithPassword,
       signInWithGoogle,
       signOut,
+      resetPassword,
+      updatePassword,
     }}>
       {children}
     </AuthContext.Provider>
