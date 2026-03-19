@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "wouter";
+import { Link } from "wouter";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSupabaseAuth } from "@/hooks/use-supabase-auth";
-import { Search, ShoppingBag, User, Menu, X, ChevronRight, LogOut, KeyRound } from "lucide-react";
+import { ShoppingBag, User, Menu, X, ChevronRight, LogOut, KeyRound } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/hooks/use-cart";
 import { MOCK_CATEGORIES } from "@/lib/mock-data";
@@ -11,10 +11,8 @@ import { useGetCategories } from "@workspace/api-client-react";
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [, setLocation] = useLocation();
   const { user, isAuthenticated, signOut } = useSupabaseAuth();
   const { totalItems } = useCart();
-  const [searchQuery, setSearchQuery] = useState("");
 
   const { data: categories = MOCK_CATEGORIES } = useGetCategories();
 
@@ -25,14 +23,6 @@ export function Navbar() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (searchQuery.trim()) {
-      setLocation(`/search?q=${encodeURIComponent(searchQuery)}`);
-      setMobileMenuOpen(false);
-    }
-  };
 
   const displayName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "Member";
   const initial = displayName[0]?.toUpperCase() ?? "U";
@@ -88,19 +78,6 @@ export function Navbar() {
 
             {/* Right: Actions */}
             <div className="flex items-center gap-2 sm:gap-4">
-              <form onSubmit={handleSearch} className="hidden md:flex relative items-center">
-                <input 
-                  type="text" 
-                  placeholder="Search luxury..." 
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="bg-secondary/50 border border-border rounded-full py-1.5 pl-4 pr-10 text-sm w-48 lg:w-64 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-muted-foreground/70"
-                />
-                <button type="submit" className="absolute right-3 text-muted-foreground hover:text-primary">
-                  <Search className="w-4 h-4" />
-                </button>
-              </form>
-
               {isAuthenticated ? (
                 <div className="hidden sm:flex items-center gap-2 ml-2">
                   <div className="text-xs text-right">
@@ -182,19 +159,6 @@ export function Navbar() {
               </div>
               
               <div className="p-5 flex-1 overflow-y-auto">
-                <form onSubmit={handleSearch} className="relative mb-8">
-                  <input 
-                    type="text" 
-                    placeholder="Search..." 
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full bg-secondary border border-border rounded-lg py-3 pl-4 pr-10 text-sm focus:outline-none focus:border-primary"
-                  />
-                  <button type="submit" className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-                    <Search className="w-4 h-4" />
-                  </button>
-                </form>
-
                 <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-4">Collections</h3>
                 <div className="flex flex-col space-y-1">
                   <Link href="/categories" onClick={() => setMobileMenuOpen(false)} className="flex items-center justify-between py-3 px-2 rounded-lg hover:bg-secondary transition-colors">

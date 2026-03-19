@@ -359,7 +359,7 @@ export default function Home() {
           )}
 
           <div className="mt-16 text-center">
-            <Link href="/search">
+            <Link href="/categories">
               <Button variant="outline" size="lg" className="border-border hover:bg-secondary px-10 h-13">
                 Discover More
                 <ArrowRight className="ml-2 w-4 h-4" />
