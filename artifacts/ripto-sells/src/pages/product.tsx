@@ -83,6 +83,7 @@ export default function ProductDetail() {
                 src={images[activeImage]} 
                 alt={product.name} 
                 className="w-full h-full object-cover"
+                onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }}
               />
               {product.badge && (
                 <div className="absolute top-6 left-6 bg-primary text-primary-foreground text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-widest shadow-lg">

@@ -73,6 +73,7 @@ export default function Home() {
             src={`${import.meta.env.BASE_URL}images/hero-luxury.png`}
             alt="Luxury E-commerce Hero" 
             className="w-full h-full object-cover object-center"
+            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1445205170230-053b83016050?w=1400&q=80"; }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-background/95 via-background/75 to-background/30" />
           <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent" />
@@ -216,6 +217,7 @@ export default function Home() {
                     src={cat.imageUrl || getMockCategoryImageUrl(cat.slug)} 
                     alt={cat.name}
                     className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
                   <div className="absolute bottom-0 left-0 w-full p-6">
@@ -241,6 +243,7 @@ export default function Home() {
                     src={cat.imageUrl || getMockCategoryImageUrl(cat.slug)} 
                     alt={cat.name}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/85 to-transparent" />
                   <div className="absolute bottom-0 left-0 w-full p-4">
@@ -299,6 +302,7 @@ export default function Home() {
               src="https://images.unsplash.com/photo-1445205170230-053b83016050?w=1400&q=80"
               alt="New Season"
               className="w-full h-full object-cover object-top"
+              onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=800&q=80"; }}
             />
             <div className="absolute inset-0 bg-gradient-to-r from-background/90 via-background/60 to-transparent" />
             <div className="absolute inset-0 flex items-center px-10 md:px-16">
@@ -473,7 +477,7 @@ export default function Home() {
                 transition={{ delay: i * 0.15 }}
               >
                 <Link href={item.href} className="group block relative h-72 rounded-2xl overflow-hidden">
-                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                  <img src={item.img} alt={item.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }} />
                   <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-8">
                     <span className="text-primary text-xs font-bold tracking-widest uppercase block mb-1">{item.label}</span>

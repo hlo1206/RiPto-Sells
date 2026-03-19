@@ -58,9 +58,10 @@ export default function Cart() {
                   >
                     <Link href={`/product/${item.productId}`} className="shrink-0 w-24 h-24 sm:w-32 sm:h-32 bg-secondary rounded-2xl overflow-hidden border border-border">
                       <img 
-                        src={item.product?.imageUrl || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=200&q=80"} 
+                        src={item.product?.imageUrl || "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=200&q=80"} 
                         alt={item.product?.name || "Product"} 
                         className="w-full h-full object-cover"
+                        onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=200&q=80"; }}
                       />
                     </Link>
                     

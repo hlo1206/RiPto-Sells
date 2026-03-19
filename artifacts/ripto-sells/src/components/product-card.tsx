@@ -45,9 +45,10 @@ export function ProductCard({ product, featured = false }: ProductCardProps) {
           ${featured ? 'md:w-1/2 lg:w-3/5 h-64 md:h-auto' : 'aspect-[4/5]'}
         `}>
           <img 
-            src={product.imageUrl || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=800&q=80"} 
+            src={product.imageUrl || "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"} 
             alt={product.name}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }}
           />
           {/* Quick Actions Overlay */}
           <div className="absolute inset-0 bg-background/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3 backdrop-blur-[2px]">

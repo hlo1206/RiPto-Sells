@@ -43,6 +43,7 @@ export default function CategoryProducts() {
           src={category.imageUrl || getMockCategoryImageUrl(category.slug)} 
           alt={category.name}
           className="absolute inset-0 w-full h-full object-cover"
+          onError={(e) => { (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"; }}
         />
         <div className="absolute inset-0 bg-background/80 backdrop-blur-sm" />
         

@@ -39,7 +39,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Sale",
-    imageUrl: "https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=800&q=80"
   },
   {
     id: 103,
@@ -52,7 +52,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 63,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.pexels.com/photos/1190829/pexels-photo-1190829.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80"
   },
   {
     id: 104,
@@ -148,7 +148,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Bestseller",
-    imageUrl: "https://images.unsplash.com/photo-1608248543803-ba4f8c70ae0b?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1570194065650-d99fb4bedf0a?w=800&q=80"
   },
   {
     id: 205,
@@ -161,7 +161,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 567,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1559304822-9eb2813c9e9d?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1622928286296-39fe5b00c1d6?w=800&q=80"
   },
   {
     id: 206,
@@ -174,7 +174,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 143,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1600369671236-e74521d4b6ad?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1545173168-9f1947eebb7f?w=800&q=80"
   },
 
   // ── SKINCARE (id 301–306) ──────────────────────────────────────────────────
@@ -257,7 +257,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80"
   },
 
   // ── ELECTRONICS (id 401–406) ───────────────────────────────────────────────
@@ -312,7 +312,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 97,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&q=80"
   },
   {
     id: 405,
@@ -356,7 +356,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: true,
     badge: "New Arrival",
-    imageUrl: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1510173489-a4b2a35e6b01?w=800&q=80"
   },
   {
     id: 502,
@@ -452,7 +452,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: true,
     badge: "Limited Edition",
-    imageUrl: "https://images.pexels.com/photos/6207816/pexels-photo-6207816.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1580893246395-52aead8960dc?w=800&q=80"
   },
   {
     id: 603,
@@ -479,7 +479,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Bestseller",
-    imageUrl: "https://images.pexels.com/photos/3270224/pexels-photo-3270224.jpeg?auto=compress&cs=tinysrgb&w=800"
+    imageUrl: "https://images.unsplash.com/photo-1602928321679-560bb453f190?w=800&q=80"
   },
   {
     id: 605,
@@ -559,7 +559,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 44,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1624222247344-550fb60583dc?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&q=80"
   },
   {
     id: 705,
@@ -573,7 +573,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Bestseller",
-    imageUrl: "https://images.unsplash.com/photo-1627123424574-724758594913?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1517254456976-1dd97f7a9117?w=800&q=80"
   },
   {
     id: 706,
@@ -587,7 +587,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=800&q=80"
   },
 ];
 
