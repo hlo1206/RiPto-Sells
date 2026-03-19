@@ -8,7 +8,7 @@ interface AuthContextType {
   isLoading: boolean;
   isAuthenticated: boolean;
   signUp: (email: string, password: string) => Promise<{ error: string | null; needsConfirmation: boolean }>;
-  sendConfirmationOtp: (email: string) => Promise<{ error: string | null }>;
+  resendSignupOtp: (email: string) => Promise<{ error: string | null }>;
   verifyOtp: (email: string, token: string) => Promise<{ error: string | null }>;
   signInWithPassword: (email: string, password: string) => Promise<{ error: string | null }>;
   signInWithGoogle: () => Promise<{ error: string | null }>;
@@ -50,10 +50,10 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
     return { error: null, needsConfirmation };
   };
 
-  const sendConfirmationOtp = async (email: string) => {
-    const { error } = await supabase.auth.signInWithOtp({
+  const resendSignupOtp = async (email: string) => {
+    const { error } = await supabase.auth.resend({
+      type: "signup",
       email,
-      options: { shouldCreateUser: false },
     });
     return { error: error?.message ?? null };
   };
@@ -62,7 +62,7 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
     const { error } = await supabase.auth.verifyOtp({
       email,
       token,
-      type: "email",
+      type: "signup",
     });
     return { error: error?.message ?? null };
   };
@@ -105,7 +105,7 @@ export function SupabaseAuthProvider({ children }: { children: React.ReactNode }
       isLoading,
       isAuthenticated: !!session,
       signUp,
-      sendConfirmationOtp,
+      resendSignupOtp,
       verifyOtp,
       signInWithPassword,
       signInWithGoogle,

@@ -9,7 +9,7 @@ type Mode = "login" | "signup";
 type Step = "form" | "otp-confirm";
 
 export default function Login() {
-  const { isAuthenticated, isLoading, signInWithPassword, signUp, sendConfirmationOtp, verifyOtp, signInWithGoogle } = useSupabaseAuth();
+  const { isAuthenticated, isLoading, signInWithPassword, signUp, resendSignupOtp, verifyOtp, signInWithGoogle } = useSupabaseAuth();
   const [, setLocation] = useLocation();
 
   const [mode, setMode] = useState<Mode>("login");
@@ -54,22 +54,14 @@ export default function Login() {
     setError(null);
     setSubmitting(true);
     const { error, needsConfirmation } = await signUp(email, password);
+    setSubmitting(false);
     if (error) {
-      setSubmitting(false);
       setError(error);
       return;
     }
     if (needsConfirmation) {
-      const { error: otpError } = await sendConfirmationOtp(email);
-      setSubmitting(false);
-      if (otpError) {
-        setError("Account created but we couldn't send the code. Try logging in directly.");
-        return;
-      }
-      setSuccess("Code sent to your email. Enter it below to confirm your account.");
+      setSuccess("Check your email inbox for the 6-digit code we just sent.");
       setStep("otp-confirm");
-    } else {
-      setSubmitting(false);
     }
   };
 
@@ -77,7 +69,7 @@ export default function Login() {
     setError(null);
     setSuccess(null);
     setSubmitting(true);
-    const { error } = await sendConfirmationOtp(email);
+    const { error } = await resendSignupOtp(email);
     setSubmitting(false);
     if (error) {
       setError("Could not resend code. Please try again.");
@@ -176,14 +168,24 @@ export default function Login() {
                     </Button>
                   </form>
 
-                  <div className="mt-5 text-center">
+                  <div className="mt-5 space-y-3 text-center">
                     <button
                       type="button"
-                      onClick={() => { setStep("form"); setOtp(""); setError(null); setSuccess(null); }}
-                      className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1.5 mx-auto transition-colors"
+                      onClick={handleResendOtp}
+                      disabled={submitting}
+                      className="text-sm text-primary hover:underline font-medium transition-colors"
                     >
-                      <ArrowLeft className="w-3.5 h-3.5" /> Go back
+                      Didn't get the code? Resend
                     </button>
+                    <div>
+                      <button
+                        type="button"
+                        onClick={() => { setStep("form"); setOtp(""); setError(null); setSuccess(null); }}
+                        className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1.5 mx-auto transition-colors"
+                      >
+                        <ArrowLeft className="w-3.5 h-3.5" /> Go back
+                      </button>
+                    </div>
                   </div>
                 </div>
               </motion.div>
