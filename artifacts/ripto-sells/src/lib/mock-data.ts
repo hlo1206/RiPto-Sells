@@ -11,7 +11,7 @@ export const MOCK_CATEGORIES: Category[] = [
 ];
 
 export const MOCK_PRODUCTS: Product[] = [
-  // ── PERFUMES (id 101–110) ──────────────────────────────────────────────────
+  // ── PERFUMES (id 101–106) ──────────────────────────────────────────────────
   {
     id: 101,
     name: "Oud Noir Extrait",
@@ -24,7 +24,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: true,
     badge: "Bestseller",
-    imageUrl: "https://images.unsplash.com/photo-1594035910387-fea47714263f?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80"
   },
   {
     id: 102,
@@ -39,7 +39,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Sale",
-    imageUrl: "https://images.unsplash.com/photo-1541643600914-78b084683702?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/965989/pexels-photo-965989.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 103,
@@ -52,7 +52,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 63,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1619994403073-2cec844b8e63?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/1190829/pexels-photo-1190829.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 104,
@@ -66,7 +66,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1563170351-be9917b5d6d1?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=800&q=80"
   },
   {
     id: 105,
@@ -79,7 +79,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 55,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80"
   },
   {
     id: 106,
@@ -93,10 +93,10 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Limited Edition",
-    imageUrl: "https://images.unsplash.com/photo-1583209814683-c023dd293cc6?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1594035910387-fea47714263f?w=800&q=80"
   },
 
-  // ── DAILY USE (id 201–210) ─────────────────────────────────────────────────
+  // ── DAILY USE (id 201–206) ─────────────────────────────────────────────────
   {
     id: 201,
     name: "Charcoal Purifying Wash",
@@ -121,7 +121,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 204,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1526947425960-945c6e72858f?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=80"
   },
   {
     id: 203,
@@ -134,7 +134,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 178,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1585751119414-ef2636f8aede?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80"
   },
   {
     id: 204,
@@ -161,7 +161,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 567,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1559304822-9eb2813c9e9d?w=800&q=80"
   },
   {
     id: 206,
@@ -177,7 +177,7 @@ export const MOCK_PRODUCTS: Product[] = [
     imageUrl: "https://images.unsplash.com/photo-1600369671236-e74521d4b6ad?w=800&q=80"
   },
 
-  // ── SKINCARE (id 301–310) ──────────────────────────────────────────────────
+  // ── SKINCARE (id 301–306) ──────────────────────────────────────────────────
   {
     id: 301,
     name: "Radiance Vitamin C Serum",
@@ -217,7 +217,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 134,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1556228841-a3c527ebefe5?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?w=800&q=80"
   },
   {
     id: 304,
@@ -230,7 +230,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 210,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1571781926291-c477ebfd024b?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&q=80"
   },
   {
     id: 305,
@@ -243,7 +243,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 298,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1623227513863-23f6ec89e61e?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1556228841-a3c527ebefe5?w=800&q=80"
   },
   {
     id: 306,
@@ -257,10 +257,10 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1598440947619-2c35fc9aa908?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=800&q=80"
   },
 
-  // ── ELECTRONICS (id 401–410) ───────────────────────────────────────────────
+  // ── ELECTRONICS (id 401–406) ───────────────────────────────────────────────
   {
     id: 401,
     name: "Aura Noise-Cancelling Headphones",
@@ -312,7 +312,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 97,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1593640408182-31c228f72df9?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/1714208/pexels-photo-1714208.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 405,
@@ -343,7 +343,7 @@ export const MOCK_PRODUCTS: Product[] = [
     imageUrl: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=800&q=80"
   },
 
-  // ── CLOTHING (id 501–510) ──────────────────────────────────────────────────
+  // ── CLOTHING (id 501–506) ──────────────────────────────────────────────────
   {
     id: 501,
     name: "Midnight Silk Robe",
@@ -356,7 +356,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: true,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1515347619152-16781cb5b206?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 502,
@@ -369,7 +369,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 61,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1548883354-94bcfe321cbb?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?w=800&q=80"
   },
   {
     id: 503,
@@ -383,7 +383,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Bestseller",
-    imageUrl: "https://images.unsplash.com/photo-1560243563-062bfc001d68?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1576871337632-b9aef4c17ab9?w=800&q=80"
   },
   {
     id: 504,
@@ -423,10 +423,10 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "New Arrival",
-    imageUrl: "https://images.unsplash.com/photo-1506629082955-511b1aa562c8?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=800&q=80"
   },
 
-  // ── HOME DECOR (id 601–610) ────────────────────────────────────────────────
+  // ── HOME DECOR (id 601–606) ────────────────────────────────────────────────
   {
     id: 601,
     name: "Golden Hour Table Lamp",
@@ -452,7 +452,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: true,
     badge: "Limited Edition",
-    imageUrl: "https://images.unsplash.com/photo-1580828369019-2220455ce712?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/6207816/pexels-photo-6207816.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 603,
@@ -479,7 +479,7 @@ export const MOCK_PRODUCTS: Product[] = [
     inStock: true,
     featured: false,
     badge: "Bestseller",
-    imageUrl: "https://images.unsplash.com/photo-1555558175-1e8cf5ca7a07?w=800&q=80"
+    imageUrl: "https://images.pexels.com/photos/3270224/pexels-photo-3270224.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 605,
@@ -492,7 +492,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 49,
     inStock: true,
     featured: false,
-    imageUrl: "https://images.unsplash.com/photo-1618220179428-22790b461013?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1486427944299-d1955d23e34d?w=800&q=80"
   },
   {
     id: 606,
@@ -508,7 +508,7 @@ export const MOCK_PRODUCTS: Product[] = [
     imageUrl: "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80"
   },
 
-  // ── ACCESSORIES (id 701–710) ───────────────────────────────────────────────
+  // ── ACCESSORIES (id 701–706) ───────────────────────────────────────────────
   {
     id: 701,
     name: "Artisan Leather Tote",
@@ -520,7 +520,7 @@ export const MOCK_PRODUCTS: Product[] = [
     reviewCount: 56,
     inStock: true,
     featured: true,
-    imageUrl: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=800&q=80"
+    imageUrl: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80"
   },
   {
     id: 702,
@@ -593,13 +593,13 @@ export const MOCK_PRODUCTS: Product[] = [
 
 export function getMockCategoryImageUrl(slug: string) {
   const images: Record<string, string> = {
-    "perfumes": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=800&q=80",
-    "daily-use": "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?w=800&q=80",
-    "skincare": "https://images.unsplash.com/photo-1617897903246-719242758050?w=800&q=80",
+    "perfumes": "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80",
+    "daily-use": "https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=800&q=80",
+    "skincare": "https://images.unsplash.com/photo-1620916566398-39f1143ab7be?w=800&q=80",
     "electronics": "https://images.unsplash.com/photo-1498049794561-7780e7231661?w=800&q=80",
     "clothing": "https://images.unsplash.com/photo-1445205170230-053b83016050?w=800&q=80",
-    "home-decor": "https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?w=800&q=80",
-    "accessories": "https://images.unsplash.com/photo-1584916201218-f4242ceb4809?w=800&q=80"
+    "home-decor": "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80",
+    "accessories": "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=800&q=80"
   };
-  return images[slug] || "https://images.unsplash.com/photo-1600164318680-a24b652da24b?w=800&q=80";
+  return images[slug] || "https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=800&q=80";
 }
