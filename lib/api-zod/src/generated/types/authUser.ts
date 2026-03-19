@@ -8,8 +8,10 @@
 
 export interface AuthUser {
   id: string;
+  email?: string;
   username?: string;
   firstName?: string;
   lastName?: string;
   profileImage?: string;
+  profileImageUrl?: string;
 }

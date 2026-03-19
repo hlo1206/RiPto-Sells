@@ -172,10 +172,10 @@ router.get("/callback", async (req: Request, res: Response) => {
   const sessionData: SessionData = {
     user: {
       id: dbUser.id,
-      email: dbUser.email,
-      firstName: dbUser.firstName,
-      lastName: dbUser.lastName,
-      profileImageUrl: dbUser.profileImageUrl,
+      email: dbUser.email ?? undefined,
+      firstName: dbUser.firstName ?? undefined,
+      lastName: dbUser.lastName ?? undefined,
+      profileImageUrl: dbUser.profileImageUrl ?? undefined,
     },
     access_token: tokens.access_token,
     refresh_token: tokens.refresh_token,
@@ -211,18 +211,18 @@ router.post(
       return;
     }
 
-    const { code, code_verifier, redirect_uri, state, nonce } = parsed.data;
+    const { code, codeVerifier, redirectUri, state, nonce } = parsed.data;
 
     try {
       const config = await getOidcConfig();
 
-      const callbackUrl = new URL(redirect_uri);
+      const callbackUrl = new URL(redirectUri);
       callbackUrl.searchParams.set("code", code);
       callbackUrl.searchParams.set("state", state);
       callbackUrl.searchParams.set("iss", ISSUER_URL);
 
       const tokens = await oidc.authorizationCodeGrant(config, callbackUrl, {
-        pkceCodeVerifier: code_verifier,
+        pkceCodeVerifier: codeVerifier,
         expectedNonce: nonce ?? undefined,
         expectedState: state,
         idTokenExpected: true,
@@ -242,10 +242,10 @@ router.post(
       const sessionData: SessionData = {
         user: {
           id: dbUser.id,
-          email: dbUser.email,
-          firstName: dbUser.firstName,
-          lastName: dbUser.lastName,
-          profileImageUrl: dbUser.profileImageUrl,
+          email: dbUser.email ?? undefined,
+          firstName: dbUser.firstName ?? undefined,
+          lastName: dbUser.lastName ?? undefined,
+          profileImageUrl: dbUser.profileImageUrl ?? undefined,
         },
         access_token: tokens.access_token,
         refresh_token: tokens.refresh_token,

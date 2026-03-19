@@ -15,8 +15,7 @@ export default function CategoryProducts() {
   
   // Use the categoryId to fetch products
   const { data: apiProducts, isLoading } = useGetProducts(
-    category ? { categoryId: category.id } : undefined,
-    { query: { enabled: !!category } }
+    category ? { categoryId: category.id } : undefined
   );
 
   // Fallback to mock data if API is empty

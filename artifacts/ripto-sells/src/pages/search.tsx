@@ -17,10 +17,7 @@ export default function Search() {
     setQuery(q);
   }, [q]);
 
-  const { data: apiProducts, isLoading } = useGetProducts(
-    { search: query },
-    { query: { enabled: !!query } }
-  );
+  const { data: apiProducts, isLoading } = useGetProducts({ search: query });
 
   // Fallback filtering on mock data if API is empty or not enabled
   const products = apiProducts && apiProducts.length > 0 
